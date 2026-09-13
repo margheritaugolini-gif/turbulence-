@@ -60,6 +60,10 @@ Generated local files include:
 - `hopf_sc_fit_results_*.mat`
 - `hopf_subjectwise_IC_SUS.mat`
 
+Included partial result:
+
+- `hopf_checkpoint_schaefer1000_G0_to_4p5.mat`
+
 ## Software
 
 MATLAB is required for the main analyses. The scripts use functions from standard MATLAB toolboxes, including signal processing and statistics functions such as `butter`, `filtfilt`, `hilbert`, `signrank`, `friedman`, and `tiedrank`.

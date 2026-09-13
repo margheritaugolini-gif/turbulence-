@@ -44,6 +44,10 @@ and checkpoint files such as:
 hopf_checkpoint_schaefer1000_G0_to_4p5.mat
 ```
 
+This repository includes `hopf_checkpoint_schaefer1000_G0_to_4p5.mat` as a
+small partial result/checkpoint. Raw data and large generated result files are
+not included.
+
 Main parameters in `hopf_model_fit.m`:
 
 ```matlab

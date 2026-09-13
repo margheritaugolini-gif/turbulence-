@@ -13,8 +13,10 @@ phase_for_turbulence.mat
 
 # Generated analysis outputs and checkpoints
 *_results.mat
+hopf_sc_fit_results*.mat
 *_statistics.mat
 *checkpoint*.mat
+!hopf_checkpoint_schaefer1000_G0_to_4p5.mat
 hopf_subjectwise_IC_SUS.mat
 whole_brain_turbulence_lambda_results.mat
 node_turbulence_results.mat
@@ -45,4 +47,6 @@ violinrsnOLD.m
 Schaefer2018_200Parcels_7Networks_order_FSLMNI152_2mm.Centroid_RAS.csv
 schaefercog*.mat
 sc_schaefer_MK_1000.mat
+sc_schaefer1000_decolab.npy
+SC_schaefer1000_decolab.mat
 SC_schaefer200*.mat
