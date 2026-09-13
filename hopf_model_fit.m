@@ -26,6 +26,8 @@
 % OUTPUT FILES
 % Cfg.save_file
 %   Checkpoint file saved every Cfg.save_every_n_subjects.
+%   If this file already exists and matches the current subject/condition
+%   dimensions and G grid, the script resumes from it.
 %
 % fit_results_file
 %   Final Hopf fit result file containing Cfg, G_range, OptimalG,
@@ -234,6 +236,35 @@ FitErrorStd  = NaN(nSub_clean, nCond_clean, numel(G_range));
 OptimalG = NaN(nSub_clean, nCond_clean);
 OptimalError = NaN(nSub_clean, nCond_clean);
 
+if isfile(Cfg.save_file)
+    checkpoint = load(Cfg.save_file);
+
+    can_resume = isfield(checkpoint, 'FitErrorMean') && ...
+        isfield(checkpoint, 'FitErrorStd') && ...
+        isfield(checkpoint, 'OptimalG') && ...
+        isfield(checkpoint, 'OptimalError') && ...
+        isfield(checkpoint, 'G_range') && ...
+        isequal(size(checkpoint.FitErrorMean), size(FitErrorMean)) && ...
+        isequal(size(checkpoint.FitErrorStd), size(FitErrorStd)) && ...
+        isequal(size(checkpoint.OptimalG), size(OptimalG)) && ...
+        isequal(size(checkpoint.OptimalError), size(OptimalError)) && ...
+        isequal(checkpoint.G_range, G_range);
+
+    if can_resume
+        FitErrorMean = checkpoint.FitErrorMean;
+        FitErrorStd = checkpoint.FitErrorStd;
+        OptimalG = checkpoint.OptimalG;
+        OptimalError = checkpoint.OptimalError;
+
+        fprintf('\n[RESUME] Loaded checkpoint: %s\n', Cfg.save_file);
+        fprintf('[RESUME] Completed subject-condition fits: %d / %d\n', ...
+            sum(isfinite(OptimalG(:))), numel(OptimalG));
+    else
+        warning(['Checkpoint %s exists but does not match current dimensions ' ...
+            'or G_range. Starting a fresh fit.'], Cfg.save_file);
+    end
+end
+
 fprintf('\n========================================\n');
 fprintf('HOPF SC FIT STARTED\n');
 fprintf('Bifurcation parameter a = %.3f\n', Cfg.a);
@@ -253,6 +284,16 @@ for cond = 1:nCond_clean
 
         fprintf('\nSubject %d / %d: %s\n', ...
             sub, nSub_clean, string(subjects_clean{sub}));
+
+        if isfinite(OptimalG(sub,cond))
+            fprintf(['  [RESUME] Skipping completed fit: subject %s ' ...
+                'condition %s | G = %.3f | error = %.6f\n'], ...
+                string(subjects_clean{sub}), ...
+                string(condition_order{cond}), ...
+                OptimalG(sub,cond), ...
+                OptimalError(sub,cond));
+            continue
+        end
 
         empcorrfcn = EmpCorrFcn{sub,cond};
         f_diff = Fdiff{sub,cond};

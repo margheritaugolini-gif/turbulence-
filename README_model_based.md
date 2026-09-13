@@ -48,6 +48,21 @@ This repository includes `hopf_checkpoint_schaefer1000_G0_to_4p5.mat` as a
 small partial result/checkpoint. Raw data and large generated result files are
 not included.
 
+When `hopf_model_fit.m` starts, it checks whether this checkpoint exists. If
+the checkpoint dimensions and G grid match the current settings, the script
+loads the partial `FitErrorMean`, `FitErrorStd`, `OptimalG`, and
+`OptimalError` arrays and skips subject-condition fits that already have a
+finite `OptimalG`.
+
+To inspect checkpoint progress manually:
+
+```matlab
+load('hopf_checkpoint_schaefer1000_G0_to_4p5.mat')
+sum(isfinite(OptimalG(:)))
+array2table(OptimalG, ...
+    'VariableNames', matlab.lang.makeValidName(string(condition_order)))
+```
+
 Main parameters in `hopf_model_fit.m`:
 
 ```matlab
