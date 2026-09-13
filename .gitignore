@@ -1,0 +1,48 @@
+# macOS / editor noise
+.DS_Store
+*.asv
+*.m~
+__pycache__/
+*.py[cod]
+
+# Raw/private data
+time_series/
+timeseries_data_all*.mat
+preprocessed_data.mat
+phase_for_turbulence.mat
+
+# Generated analysis outputs and checkpoints
+*_results.mat
+*_statistics.mat
+*checkpoint*.mat
+hopf_subjectwise_IC_SUS.mat
+whole_brain_turbulence_lambda_results.mat
+node_turbulence_results.mat
+information_cascade_subjectlevel.mat
+
+# Generated figures
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+*.pdf
+*.fig
+
+# Exploratory / archived local scripts not part of the clean public pipeline
+compare200vs1000.m
+coverage.m
+distanceradius.m
+hopfsepecificsubcond.m
+inspect_distance_bins.m
+lambdaprobplots.m
+mergingGfit.m
+plots_turbulence2.m
+stats_convsmed.m
+violinrsnOLD.m
+
+# Optional legacy/local parcellation files
+Schaefer2018_200Parcels_7Networks_order_FSLMNI152_2mm.Centroid_RAS.csv
+schaefercog*.mat
+sc_schaefer_MK_1000.mat
+SC_schaefer200*.mat
